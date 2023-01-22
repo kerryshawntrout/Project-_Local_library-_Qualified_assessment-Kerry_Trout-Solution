@@ -7,9 +7,9 @@ function findAccountById(accounts, id) {
   });
   return targetAccount;
 }
-
-function sortAccountsByLastName(accounts) {
-  let sortedAccounts = accounts.sort(function (a, b) {
+//helper function
+function arrange(accounts) {
+  let arrangedAccounts = accounts.sort(function (a, b) {
     let nameA = a.name.last;
     let nameB = b.name.last;
     if (nameA < nameB) {
@@ -20,19 +20,22 @@ function sortAccountsByLastName(accounts) {
     }
     return 0;
   });
+  return arrangedAccounts;
+}
+function sortAccountsByLastName(accounts) {
+  let sortedAccounts = arrange(accounts);
   return sortedAccounts;
 }
-
+//rewrote function to use .reduce()
 function getTotalNumberOfBorrows(account, books) {
-  let allBorrows = 0;
-  for (let i = 0; i < books.length; i++) {
-    for (let j = 0; j < books[i].borrows.length; j++) {
-      if (account.id === books[i].borrows[j].id) {
-        allBorrows += 1;
-      }
-    }
-  }
-  return allBorrows;
+  return books.reduce((allBorrows, book) => {
+    return (
+      allBorrows +
+      book.borrows.reduce((borrows, borrow) => {
+        return borrows + (account.id === borrow.id ? 1 : 0);
+      }, 0)
+    );
+  }, 0);
 }
 
 function getBooksPossessedByAccount(account, books, authors) {
