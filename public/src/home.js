@@ -1,14 +1,30 @@
-function getTotalBooksCount(books) {}
+function getTotalBooksCount(books) {
+  return books.length;
+}
 
-function getTotalAccountsCount(accounts) {}
+function getTotalAccountsCount(accounts) {
+  return accounts.length;
+}
 
-function getBooksBorrowedCount(books) {}
+function getBooksBorrowedCount(books) {
+  let booksBorrowed = books.filter(
+    (book) =>
+      book.borrows.filter((record) => record.returned === false).length > 0
+  );
+  return booksBorrowed.length;
+}
 
-function getMostCommonGenres(books) {}
+function getMostCommonGenres(books) {
 
-function getMostPopularBooks(books) {}
+}
 
-function getMostPopularAuthors(books, authors) {}
+function getMostPopularBooks(books) {
+
+}
+
+function getMostPopularAuthors(books, authors) {
+  
+}
 
 module.exports = {
   getTotalBooksCount,
